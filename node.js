@@ -1,25 +1,57 @@
 const express = require('express');
 const puppeteer = require('puppeteer-core');
 const app = express();
+const { exec } = require('child_process');
 
 // Dynamic port binding for Azure
 const port = process.env.PORT || 8080;
 
-const { exec } = require('child_process');
-const puppeteer = require('puppeteer');
+let chromiumVersion = 'Checking...';
+let puppeteerVersion = require('puppeteer-core/package.json').version;
+let nodeVersion = process.version;
 
-// Check Chromium version
+// Check Chromium version when the app starts
 exec('chromium-browser --version', (error, stdout, stderr) => {
   if (error) {
     console.error(`Error executing Chromium command: ${error}`);
-    return;
+    chromiumVersion = 'Error';
+  } else {
+    console.log(`Chromium version: ${stdout}`);
+    chromiumVersion = stdout;
   }
-  console.log(`Chromium version: ${stdout}`);
 });
 
-// Check Puppeteer version
-const puppeteerVersion = require('puppeteer/package.json').version;
-console.log(`Puppeteer version: ${puppeteerVersion}`);
+app.get('/', (req, res) => {
+  res.send(`Scraping service is running.<br>
+            STATUS: <br>
+            PUPPETEER: ${puppeteerVersion} OK<br>
+            CHROMIUM: ${chromiumVersion}<br>
+            NODE: ${nodeVersion} OK`);
+});
+
+app.get('/scrape', async (req, res) => {
+  try {
+    const url = req.query.url;
+    const store = req.query.store;
+    const article = req.query.article;
+    let result;
+
+    if (store === 'Lidl') {
+      result = await scrapeLidl(url, article);
+    } else if (store === 'Netto') {
+      result = await scrapeNetto(url);
+    } else if (store === 'Idealo') {
+      const seller = decodeURIComponent(req.query.seller);
+      result = await scrapeIdealo(url, seller);
+    } else {
+      return res.status(400).send({ error: 'Invalid store type' });
+    }
+
+    res.send(result);
+  } catch (error) {
+    res.status(500).send({ error: error.message });
+  }
+});
 
 async function scrapeLidl(url, targetArticleNumber) {
   const browser = await puppeteer.launch({ executablePath: '/usr/bin/chromium-browser' });
