@@ -52,5 +52,5 @@ jobs:
         with:
           app-name: 'PegasoScraper'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_4AE76F0DC6854C28BDBCA1A3147849BB }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_281343C659F442A4897E58F5BFD8FF8D }}
           package: .
