@@ -5,6 +5,22 @@ const app = express();
 // Dynamic port binding for Azure
 const port = process.env.PORT || 8080;
 
+const { exec } = require('child_process');
+const puppeteer = require('puppeteer');
+
+// Check Chromium version
+exec('chromium-browser --version', (error, stdout, stderr) => {
+  if (error) {
+    console.error(`Error executing Chromium command: ${error}`);
+    return;
+  }
+  console.log(`Chromium version: ${stdout}`);
+});
+
+// Check Puppeteer version
+const puppeteerVersion = require('puppeteer/package.json').version;
+console.log(`Puppeteer version: ${puppeteerVersion}`);
+
 async function scrapeLidl(url, targetArticleNumber) {
   const browser = await puppeteer.launch({ executablePath: '/usr/bin/chromium-browser' });
   const page = await browser.newPage();
