@@ -1,7 +1,9 @@
 const express = require('express');
 const puppeteer = require('puppeteer-core');
 const app = express();
-const port = 8080;
+
+// Dynamic port binding for Azure
+const port = process.env.PORT || 8080;
 
 async function scrapeLidl(url, targetArticleNumber) {
   const browser = await puppeteer.launch({ executablePath: '/usr/bin/chromium-browser' });
@@ -93,6 +95,8 @@ app.get('/scrape', async (req, res) => {
 
   res.send(result);
 });
+
+app.get('/', (req, res) => res.send('Scraping service is running.'));
 
 app.listen(port, () => {
   console.log(`Scraping service listening at http://localhost:${port}`);
