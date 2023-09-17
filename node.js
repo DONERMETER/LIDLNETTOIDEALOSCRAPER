@@ -96,7 +96,7 @@ async function scrapeNetto(url) {
 }
 
 async function scrapeIdealo(url, sellerName) {
-  const browser = await puppeteer.launch({ executablePath: '/usr/bin/chromium-browser', headless: false });
+  const browser = await puppeteer.launch({ headless: false });
   const page = await browser.newPage();
   await page.goto(url, { waitUntil: 'networkidle2', timeout: 60000 });
 
@@ -119,6 +119,11 @@ async function scrapeIdealo(url, sellerName) {
     }
     return results;
   }, sellerName);
+
+  await browser.close();
+  return offers;
+}
+
 
   await browser.close();
   return offers;
