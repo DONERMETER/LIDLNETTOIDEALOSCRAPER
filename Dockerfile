@@ -4,6 +4,10 @@ FROM node:14
 # Install Chromium
 RUN apt-get update && apt-get install -y chromium
 
+# Set environment for Puppeteer
+ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true
+ENV CHROMIUM_PATH=/usr/bin/chromium
+
 # Set the working directory in the container
 WORKDIR /usr/src/app
 
