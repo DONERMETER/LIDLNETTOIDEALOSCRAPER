@@ -1,0 +1,17 @@
+{
+  "name": "scraping-project",
+  "version": "1.0.0",
+  "main": "node.js",
+  "scripts": {
+    "test": "echo \"No tests specified\" && exit 0"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2",
+    "puppeteer": "^21.0.3",
+    "puppeteer-core": "^21.0.3"
+  },
+  "description": ""
+}
