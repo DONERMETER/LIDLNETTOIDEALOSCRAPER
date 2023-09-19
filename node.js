@@ -2,7 +2,7 @@ const express = require('express');
 const puppeteer = require('puppeteer-core');
 const app = express();
 
-// Dynamic port binding for Azure
+// Dynamic ports binding for Azure
 const port = process.env.PORT || 8080;
 
 async function scrapeLidl(url, targetArticleNumber) {
