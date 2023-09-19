@@ -53,7 +53,10 @@ app.get('/scrape', async (req, res) => {
   }
 });
 async function fetchLidlData(url, targetArticleNumber) {
-  const browser = await puppeteer.launch({ executablePath: '/usr/bin/chromium-browser' });
+  const browser = await puppeteer.launch({
+  executablePath: '/usr/bin/chromium',
+  args: ['--no-sandbox', '--disable-dev-shm-usage']
+});
   const page = await browser.newPage();
   await page.goto(url);
 
@@ -81,7 +84,10 @@ async function fetchLidlData(url, targetArticleNumber) {
 }
 
 async function fetchNettoData(url) {
-  const browser = await puppeteer.launch({ executablePath: '/usr/bin/chromium-browser' });
+  const browser = await puppeteer.launch({
+  executablePath: '/usr/bin/chromium',
+  args: ['--no-sandbox', '--disable-dev-shm-usage']
+});
   const page = await browser.newPage();
   await page.goto(url, { waitUntil: 'load', timeout: 60000 });
 
@@ -94,7 +100,10 @@ async function fetchNettoData(url) {
 }
 
 async function fetchIdealoData(url, shopName) {
-  const browser = await puppeteer.launch({ executablePath: '/usr/bin/chromium-browser', headless: false });
+  const browser = await puppeteer.launch({
+  executablePath: '/usr/bin/chromium',
+  args: ['--no-sandbox', '--disable-dev-shm-usage']
+});
   const page = await browser.newPage();
   await page.goto(url, { waitUntil: 'networkidle2', timeout: 60000 });
 
