@@ -22,7 +22,7 @@ exec('chromium-browser --version', (error, stdout, stderr) => {
 });
 
 app.get('/', (req, res) => {
-  res.send(`Scraping Service ist Aktiv.<br>
+  res.send(`PEGASOMARINE Scraping Service ist Aktiv.<br>
             Status: <br>
             Puppeteer Version: ${puppeteerVersion} OK<br>
             Chromium Version: ${chromiumVersion}<br>
