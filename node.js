@@ -1,12 +1,12 @@
 const express = require('express');
-const puppeteer = require('puppeteer-core');
+const puppeteer = require('puppeteer');
 const app = express();
 
 // Dynamic port binding for Azure
 const port = process.env.PORT || 8080;
 
 async function scrapeLidl(url, targetArticleNumber) {
-  const browser = await puppeteer.launch({ executablePath: '/usr/bin/chromium-browser' });
+  const browser = await puppeteer.launch();
   const page = await browser.newPage();
   await page.goto(url);
 
@@ -35,7 +35,7 @@ async function scrapeLidl(url, targetArticleNumber) {
 }
 
 async function scrapeNetto(url) {
-  const browser = await puppeteer.launch({ executablePath: '/usr/bin/chromium-browser' });
+  const browser = await puppeteer.launch();
   const page = await browser.newPage();
   await page.goto(url, { waitUntil: 'load', timeout: 60000 });
 
@@ -48,7 +48,7 @@ async function scrapeNetto(url) {
 }
 
 async function scrapeIdealo(url, sellerName) {
-  const browser = await puppeteer.launch({ executablePath: '/usr/bin/chromium-browser', headless: false });
+  const browser = await puppeteer.launch();
   const page = await browser.newPage();
   await page.goto(url, { waitUntil: 'networkidle2', timeout: 60000 });
 
