@@ -3,14 +3,16 @@
   "version": "1.0.0",
   "main": "node.js",
   "scripts": {
+    "start": "node node.js",
     "test": "echo \"No tests specified\" && exit 0"
   },
-  "keywords": [],
+  "keywords": ["web-scraping", "puppeteer", "express"],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "express": "^4.18.2",
-    "puppeteer": "^21.0.3"
+    "puppeteer-core": "^21.0.3",
+    "child_process": "^1.0.2"
   },
-  "description": ""
+  "description": "A web scraping project using Puppeteer and Express"
 }
